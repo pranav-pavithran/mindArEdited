@@ -3,6 +3,7 @@ const { Controller, UI } = window.MINDAR.IMAGE;
 AFRAME.registerSystem('mindar-image-system', {
   container: null,
   video: null,
+  shouldFaceUser: false,
   processingImage: false,
 
   init: function () {
@@ -53,6 +54,11 @@ AFRAME.registerSystem('mindar-image-system', {
     });
     this.video.remove();
   },
+  switchCamera: function() {
+    this.shouldFaceUser = !this.shouldFaceUser;
+    this.stop();
+    this.start();
+  },
 
   pause: function (keepVideo = false) {
     if (!keepVideo) {
@@ -89,7 +95,7 @@ AFRAME.registerSystem('mindar-image-system', {
 
     navigator.mediaDevices.getUserMedia({
       audio: false, video: {
-        facingMode: 'face',
+        facingMode: (this.shouldFaceUser? 'face': 'environment')
       }
     }).then((stream) => {
       this.video.addEventListener('loadedmetadata', () => {
