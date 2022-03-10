@@ -21,8 +21,8 @@
 
     <div style="position: absolute; z-index: 1000; margin: 20px;">
         <button id="switch-camera-button">Switch camera</button>
-    
-      </div>
+
+    </div>
 
     <a-scene
         mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/examples/image-tracking/assets/card-example/card.mind;"
@@ -45,8 +45,9 @@
     </a-scene>
 </body>
 <script>
-
-const switchCameraButton = document.querySelector("#switch-camera-button");
+    const sceneEl = document.querySelector('a-scene');
+    const arSystem = sceneEl.systems["mindar-image-system"];
+    const switchCameraButton = document.querySelector("#switch-camera-button");
 
     switchCameraButton.addEventListener('click', () => {
         arSystem.switchCamera();
